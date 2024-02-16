@@ -1,4 +1,4 @@
-name: GKI Kernel Build
+name: GhostSP build Kernel
 
 on:
   workflow_call:
