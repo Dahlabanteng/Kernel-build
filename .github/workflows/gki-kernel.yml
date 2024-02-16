@@ -114,7 +114,7 @@ jobs:
         run: |
            cd $GITHUB_WORKSPACE/android-kernel
            rm -rf common
-           git clone https://github.com/Dahlabanteng/kernel_infinix-x678b -b udc common
+           git clone https://github.com/Dahlabanteng/kernel-common -b udc common
            
 
       - name: Setup KernelSU
