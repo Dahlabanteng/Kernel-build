@@ -1,4 +1,4 @@
-name: Build debug kernel
+name: GhostSP compile Kernel
 on:
   workflow_dispatch:
 
