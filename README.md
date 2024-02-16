@@ -2,4 +2,4 @@
 # Kernel-build
 
 
-<a href="https://ibb.co/1KqphTx"><img src="https://i.ibb.co/4MTD9px/20240203-173131.jpg" alt="20240203-173131" border="0"></a>
+<a href="https://ibb.co/J54Md3H"><img src="https://i.ibb.co/nzv50Pj/20240204-205938.jpg" alt="20240204-205938" border="0"></a>
