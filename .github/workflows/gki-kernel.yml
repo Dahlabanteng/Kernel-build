@@ -111,6 +111,13 @@ jobs:
           repo --trace sync -c -j$(nproc --all) --no-tags
           df -h
 
+      - name: clone common
+        run: |
+           cd $GITHUB_WORKSPACE/android-kernel
+           rm -rf common
+           git clone https://github.com/Dahlabanteng/kernel-common -b udc common
+           
+
       - name: Setup KernelSU
         env:
           PATCH_PATH: ${{ inputs.patch_path }}
