@@ -150,7 +150,7 @@ jobs:
             export KSU_EXPECTED_HASH=${{ vars.EXPECTED_HASH }}
           fi
           if [ -e build/build.sh ]; then
-            BUILD_CONFIG=common/build.config.gki.x678b \
+            BUILD_CONFIG=common/build.config.x678b \
             ABI_DEFINITION=abi_gki_aarch64.xml KMI_SYMBOL_LIST_ADD_ONLY=1 \
             build/build_abi.sh --update --print-report CC="/usr/bin/ccache clang"
           else
