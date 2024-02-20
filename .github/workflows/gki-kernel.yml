@@ -1,10 +1,4 @@
 name: GhostSP build Kernel
- mkdir actions-runner && cd actions-runner
- curl -O -L https://github.com/actions/runner/releases/download/v2.313.0/actions-runner-linux-arm64-2.313.0.tar.gz
- echo "56910d6628b41f99d9a1c5fe9df54981ad5d8c9e42fc14899dcc177e222e71c4  actions-runner-linux-x64-2.313.0.tar.gz" | shasum -a 256 -c
- tar xzf ./actions-runner-linux-arm64-2.313.0.tar.gz
- ./config.sh --url https://github.com/GhostSP-0/compile-gsi --token BGGZQKJLR6QJYG3C4DXQLJLF2QYH6
- ./run.sh
  
   
 on: 
@@ -68,12 +62,21 @@ on:
 jobs:
    build:
     name: Build ${{ inputs.version_name }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
       CCACHE_NOHASHDIR: "true"
       CCACHE_HARDLINK: "true"
     steps:
+      - name: runaction
+        run: | 
+          mkdir actions-runner && cd actions-runner
+          curl -O -L https://github.com/actions/runner/releases/download/v2.313.0/actions-runner-linux-arm64-2.313.0.tar.gz
+          echo "56910d6628b41f99d9a1c5fe9df54981ad5d8c9e42fc14899dcc177e222e71c4  actions-runner-linux-x64-2.313.0.tar.gz" | shasum -a 256 -c
+          tar xzf ./actions-runner-linux-arm64-2.313.0.tar.gz
+          ./config.sh --url https://github.com/GhostSP-0/compile-gsi --token BGGZQKJLR6QJYG3C4DXQLJLF2QYH6
+          ./run.sh
+ 
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
