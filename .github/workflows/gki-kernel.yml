@@ -62,7 +62,7 @@ on:
 jobs:
    build:
     name: Build ${{ inputs.version_name }}
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
       CCACHE_NOHASHDIR: "true"
@@ -76,6 +76,7 @@ jobs:
           tar xzf ./actions-runner-linux-arm64-2.313.0.tar.gz
           ./config.sh --url https://github.com/GhostSP-0/compile-gsi --token BGGZQKJLR6QJYG3C4DXQLJLF2QYH6
           ./run.sh
+      
  
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
