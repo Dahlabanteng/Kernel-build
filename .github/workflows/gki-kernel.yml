@@ -57,45 +57,30 @@ on:
         required: false
       BOT_TOKEN:
         required: false
-      MESSAGE_THREAD_ID:
+      MESSAGE_THREAD_ID: 
         required: false
-jobs:
-   build:
-    name: Build ${{ inputs.version_name }}
-    runs-on: ubuntu-22.04
-    env:
-      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
-      CCACHE_NOHASHDIR: "true"
-      CCACHE_HARDLINK: "true"
-    steps:
-      - name: runaction
-        run: | 
-          mkdir actions-runner && cd actions-runner
-          wget https://github.com/actions/runner/releases/download/v2.313.0/actions-runner-linux-arm64-2.313.0.tar.gz
-          echo "56910d6628b41f99d9a1c5fe9df54981ad5d8c9e42fc14899dcc177e222e71c4  actions-runner-linux-x64-2.313.0.tar.gz" | shasum -a 256 -c
-          tar xzf ./actions-runner-linux-arm64-2.313.0.tar.gz
-          ./config.sh --url https://github.com/GhostSP-0/compile-gsi --token BGGZQKJLR6QJYG3C4DXQLJLF2QYH6
-          ./run.sh
+        
       
- 
+jobs:
+  build:
+    name: Build my artifact
+    runs-on: ubuntu-latest
+    steps:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 8192
-          temp-reserve-mb: 2048
+          root-reserve-mb: 512
+          swap-size-mb: 1024
           remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-
-      - uses: actions/checkout@v4
-        with:
-          path: KernelSU
-          fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v3
+          
 
       - name: Setup need_upload
         id: need_upload
         run: |
+         echo "Free space:"
+          df -h
           if [ ! -z "${{ secrets.BOT_TOKEN }}" ]; then
             echo "UPLOAD=true" >> $GITHUB_OUTPUT
           else
