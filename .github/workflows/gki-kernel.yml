@@ -115,8 +115,15 @@ jobs:
            cd $GITHUB_WORKSPACE/android-kernel
            rm -rf common
            git clone https://github.com/Dahlabanteng/kernel-common -b udc common
-           
 
+      - name: install clang 18
+        run: | 
+          mkdir $GITHUB_WORKSPACE/android-kernel/prebuilts-master/clang/host/linux-x86/clang-r510928
+          cd $GITHUB_WORKSPACE/android-kernel/prebuilts-master/clang/host/linux-x86/clang-r510928
+          wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r510928.tar.gz
+          tar xvf *
+          cd $GITHUB_WORKSPACE/android-kernel
+           
       - name: Setup KernelSU
         env:
           PATCH_PATH: ${{ inputs.patch_path }}
