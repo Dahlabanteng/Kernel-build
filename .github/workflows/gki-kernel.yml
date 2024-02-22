@@ -99,7 +99,7 @@ jobs:
           cd $GITHUB_WORKSPACE
           sudo apt-get install repo -y
           mkdir android-kernel && cd android-kernel
-          repo init --u https://android.googlesource.com/kernel/manifest -b common-android12-5.10-lts
+          repo init --u https://github.com/Dahlabanteng/kernel-manifest -b udc
           DEFAULT_MANIFEST_PATH=.repo/manifests/default.xml
           if grep -q deprecated <<< $REMOTE_BRANCH; then
             echo "Found deprecated branch: ${{ inputs.tag }}"
@@ -109,12 +109,6 @@ jobs:
           repo --version
           repo --trace sync -c -j$(nproc --all) --no-tags
           df -h
-
-      - name: clone common
-        run: |
-           cd $GITHUB_WORKSPACE/android-kernel
-           rm -rf common
-           git clone https://github.com/Dahlabanteng/kernel-common -b main common
 
       - name: install clang 18
         run: | 
@@ -157,7 +151,7 @@ jobs:
             export KSU_EXPECTED_HASH=${{ vars.EXPECTED_HASH }}
           fi
           if [ -e build/build.sh ]; then
-            LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh CC="/usr/bin/ccache clang"
+            LTO=thin BUILD_CONFIG=build.config build/build.sh CC="/usr/bin/ccache clang"
           else
             tools/bazel run --disk_cache=/home/runner/.cache/bazel --config=fast --config=stamp --lto=thin //common:kernel_aarch64_dist -- --dist_dir=dist
           fi
